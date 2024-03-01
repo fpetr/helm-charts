@@ -21,7 +21,7 @@ image:
 imagePullSecrets:
   - name: registry.gitlab.com
 
-## @section Licence server parameters
+## @section License server parameters
 ## @param profile Value of LCP profile. Allowed values are "basic" or "1.0"
 profile: "basic"
 
@@ -60,150 +60,196 @@ database:
   username: ""
   password: ""
 
-# certificate:
-#   mountPath: /app/cert
-#   certificateBase64: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZwVENDQTQyZ0F3SUJBZ0lCQVRBTkJna3Foa2lHOXcwQkFRc0ZBREJuTVFzd0NRWURWUVFHRXdKR1VqRU8KTUF3R0ExVUVCeE1GVUdGeWFYTXhEekFOQmdOVkJBb1RCa1ZFVWt4aFlqRVNNQkFHQTFVRUN4TUpURU5RSUZSbApjM1J6TVNNd0lRWURWUVFERXhwRlJGSk1ZV0lnVW1WaFpHbDFiU0JNUTFBZ2RHVnpkQ0JEUVRBZUZ3MHhOakF6Ck1qVXdNek0zTURCYUZ3MHlOakF6TWpNd056TTNNREJhTUlHUU1Rc3dDUVlEVlFRR0V3SkdVakVPTUF3R0ExVUUKQnhNRlVHRnlhWE14RHpBTkJnTlZCQW9UQmtWRVVreGhZakVTTUJBR0ExVUVDeE1KVEVOUUlGUmxjM1J6TVNJdwpJQVlEVlFRREV4bFVaWE4wSUhCeWIzWnBaR1Z5SUdObGNuUnBabWxqWVhSbE1TZ3dKZ1lKS29aSWh2Y05BUWtCCkZobHNZWFZ5Wlc1MExteGxiV1YxY2tCbFpISnNZV0l1YjNKbk1JSUNJakFOQmdrcWhraUc5dzBCQVFFRkFBT0MKQWc4QU1JSUNDZ0tDQWdFQXEvZ0ZYZHZLYitFT3pzRWtIY29TT2NQUW1Oeml2emYrOU5PSmN4V2kxL0J3dXhxQQpBUHYrNExLb0x6ODlVMXh4NVRFMXN3TDExQnNFa0lkVllyamwxUmlZUmE4WVY0YmI0eHlNVG04bG0zOVAxNkgxCmZHN0VwOHl5b1Z1TjZMVDNXVDJ4SEdwMmpZVThJMm5XNzhjeVlBcEFXQXVpTWMzZXBlSU94QzJtS2dmMXBHbmEKWDlqNWwvUng4aGh4VUxxb0hJSHBSOGUxZVZSQzd0Z0F6NE95NXFlTHhHb0w0UytHSy8xMWVSbERPMzd3aEFXYQpNUmJQbkpEcXFpOFowQmVvdmY2am1kb1VUSmRjUFpaOWtGZHRQc1dqUE5OSERsZFB1SkJ0Q2Q3bHVwYzBLNHBDCmxKU3F0Skt5eHMwNVllYjFqN2ticy9pM2dyZGxVY3h6MHpPYVBOMVl6cnpPTzdHTEVXVW5JZStMd1ZYQWVVc2UKSGVkT2V4SVR5RFFYWENxTW9Rdy9CQzZBcEd6UjBGeW5DNm9qcTk4dFN0WUdKQUdiS0JOLzlwMjBDdllmNC9obQpQVTNmRmtJbVdndVBJb2VKVC8vMHJ6K25TeW55a2VFVnRPUlJJY2R5T25YMnJMMDN4eEJXN3FsVGxVWE9mUWs1Cm9MSVdYQlc5WjJRNjNNUFdpOGpRaFNJMGpDMTJpRXFDVDU0eEtSSE5XS3IwNGF0OXBKTDg1TTBiRENiQkgvakoKK0FJYlZ4MDJld3RYY1dnV1RnSzl2Z1NQTjVrUkN3SUdhVjlQTVMxOTNLSGZOcEdxVjQ1RUtyZlA4VTJudk5EZQp5cUxxQU41ODQ3QUJTVzdVbUE1S2oveDV1R3hJV3U5TVVLalpsVDBGcGVwc3dGdk1NbzFJbkxIQU5NY0NBd0VBCkFhTXlNREF3REFZRFZSMFRBUUgvQkFJd0FEQUxCZ05WSFE4RUJBTUNCYUF3RXdZRFZSMGxCQXd3Q2dZSUt3WUIKQlFVSEF3RXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnSUJBRUdBcXpIc0NicmZRd2xXYXMzcTY2RkcveGJpT1lReApwbmdBNENaV0tRekpKRHlPRmdXRWloVytINk5sU0lIODA3NnNycElaQnlqRUdYWmZPa3U0Tkg0REdOT2o2alE5Cm1FZkV3YnJ2Q29FVkhRZjVZWGxhZFhwS3FaZ0VCMkZLZUpWakM3eXBsZWxCdGpCcFNvMjN6aEcvbzMvQmo3elIKeVNMNmdVQ2V3bjd6L0RreE02QXNoREU0SEtReGp4cDdzdHBFU2V2KzBWVEw4MTNXWHZ3em11Y3I5NEgxVlByYQpzRnlWelFIajRJYitJZDFPQW1nZnpzdDB2U1p5WDZiakF1aU45eXJzN3d6ZTVjQVlUYXN3V3I3R0FuQVovcjFaCjNQaURwNTBxYUdSaEhxSitsUkFoaWhwRlArWmpzWVdScW54Wm5EekprSjZSWkFIaTJhM1ZOOHg1V2hPVU1UZjMKSlpjRlZoZURtQTRTYUVqQVpBSFU4elV4eDFGc3RqYzhHSmNqVHdXeENzVk0yYVJFQktYQVlEaFBUVkxSS3Q2UAp5UXhCMEd4akRaWlN2R0k5dVhuNlM1d3ZqdUU0VDJUVXdiSmVHSHFKcjRGTnBYVlEyWE53dytzVjJRU2lBd3JsCk9SbThITlhxYXZqNHJxejFQa1V5U1hKNmI3emJqWm9pQUNxNEM3emI3MHRSWUR5Q2ZMVFl0YVRMM1VLMlNhOWUKUFNsMEZlNlFmY3FsR2phbHJxT280R0k2b3FiQUlrSVhvY0hIa3NiTHgwbUlNU0VXUU9heCtEcVhoc2w4dE5HVgp3YTVFaVVTeTgzU2MwTHlZWG9XQTM1cThkdWdia2VOblk5NHJORy9oWUtlY2kxVkhoeWc0cnF4RWVWd2ZCeDEyCjFKcVFTcytoSEdLdAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
-#   privatekeyBase64: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUpRZ0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQ1N3d2dna29BZ0VBQW9JQ0FRQ3IrQVZkMjhwdjRRN08Kd1NRZHloSTV3OUNZM09LL04vNzAwNGx6RmFMWDhIQzdHb0FBKy83Z3NxZ3ZQejFUWEhIbE1UV3pBdlhVR3dTUQpoMVZpdU9YVkdKaEZyeGhYaHR2akhJeE9ieVdiZjAvWG9mVjhic1NuekxLaFc0M290UGRaUGJFY2FuYU5oVHdqCmFkYnZ4ekpnQ2tCWUM2SXh6ZDZsNGc3RUxhWXFCL1drYWRwZjJQbVg5SEh5R0hGUXVxZ2NnZWxIeDdWNVZFTHUKMkFEUGc3TG1wNHZFYWd2aEw0WXIvWFY1R1VNN2Z2Q0VCWm94RnMrY2tPcXFMeG5RRjZpOS9xT1oyaFJNbDF3OQpsbjJRVjIwK3hhTTgwMGNPVjArNGtHMEozdVc2bHpRcmlrS1VsS3Ewa3JMR3pUbGg1dldQdVJ1eitMZUN0MlZSCnpIUFRNNW84M1ZqT3ZNNDdzWXNSWlNjaDc0dkJWY0I1U3g0ZDUwNTdFaFBJTkJkY0tveWhERDhFTG9Da2JOSFEKWEtjTHFpT3IzeTFLMWdZa0Fac29FMy8ybmJRSzloL2orR1k5VGQ4V1FpWmFDNDhpaDRsUC8vU3ZQNmRMS2ZLUgo0UlcwNUZFaHgzSTZkZmFzdlRmSEVGYnVxVk9WUmM1OUNUbWdzaFpjRmIxblpEcmN3OWFMeU5DRklqU01MWGFJClNvSlBuakVwRWMxWXF2VGhxMzJra3Z6a3pSc01Kc0VmK01uNEFodFhIVFo3QzFkeGFCWk9BcjIrQkk4M21SRUwKQWdacFgwOHhMWDNjb2Q4MmthcFhqa1FxdDgveFRhZTgwTjdLb3VvQTNuempzQUZKYnRTWURrcVAvSG00YkVoYQo3MHhRcU5tVlBRV2w2bXpBVzh3eWpVaWNzY0EweHdJREFRQUJBb0lDQUhSVVllVDlJbk1PVG9NRVdsY2djN1hKCnhaa3lpdHlKbDVtc1kyV0xkRTRaSTFrZWN3cTNiTkk1YU5ZVk5Ibm9wazlCTzY4dHlIZkVFeEZseXhmdU5lTXkKTVFlcWk0L2g5V3NyeTZuZlBCUjFTZUIzZWVYRDFKb2lPWkEzcThhSWJHNWM4aXRqeFhDMGVWc0haTk5zNzZIUwpMWGFoNEFWSzIxdGhrVldaLzdhZERjazdwZktDaDAwSW1mQUlJdGRXZlJSVHVTZkthL040VVpMYVlhbiswQTJCCnQyV1Z5eFY0blkyeWRqNEdIZG5vWS9FYkRSUTU5eFZWWHJqakJkWWp1dzFUYlA1TmJML25BQW5WZkhrZyt4Q2sKaDJsRkR1TWZveGtaOGZqa1pJa1ZjY0FtVmlYR2I3ZVpLUUNjb1QyZUMrMCtiZ1FQc3F2bFBjL1l1MTFhb2ZHQQpXSlhTYjlWYlBuTldEQ21EZmRuMDNWY0hCQ0NMWUx5RUJIb2d3NUR3K1YxN3ZWOVE1YU4zYXFEbmJMUkUwLzIyCitybUJucG4rRWowaHhEWno0akZ6cE90QUNUNnZSeXJ6V1EwSXZLbmI4RHpkVEVFM3AwTm01bFF6cE1Ta1dMaXoKdStnelRUUm8zcU1RTjBnZU9NWmplT0UrcDBSN20rUVJwUEtjQkdwTWtPem12Mk5Mb0xCb25HaWxJUWhtTmdOdgpuZHhWUm5EL3N4UnlWL3RUb3ExS3BWRkhGRFZmT21lOWZZWXNpN0Fkdml5NGJxWHFGZ1g2cnBrL2VYekZHeVdWClFORHZ5b1R1NmdqS1RkdUNsVjBtem1EcUY2UDZ6eU5XRWNOUWU0cFR5cmszREs3V01iWURSTXl6NWozd3hrLzEKdXJwL2JjU1hpaHNENHpnY1lIZkJBb0lCQVFEWUFacEdSOUVvTnZScGMxOU1DRmRVNDM4Wno1b09QZ1VGVVprMQpZZkw3Y3NKQlhHZEJuQUxzaXd5ektEZC9mZ1h3M1VGOEIreFJ4bzZiTHFUY1haWWlRSTNPbkZtNFJ6NEhvcVZsCk1sVEhPK2phckpYTGp0YklTUGx6MTE1cFJjaU9jaHpTZCtEM0l2Z2ZkWmRXSDBQMEVjVXY5bWZWWURZZ2Y5MjMKaUx4TUwyT083cGtPaTR0TXlxLzd0S1VaQ0xDNWJSRXp5K0FzUVJhZnZ0ZFk3MHc0R1crS0xYaDdoOXExZFprYwpwd2pVdHRnZzJ3K0dOTFE3ZU02NjF5VXZDRFAxN3dFRHRrZDBmWVBwUUpCWmFZNVppKzBtQjMwd2FWb09BYnoxCm5CbUd3NTV1ZXNzOGIxcUJQWkM0ajhSem5jT0NTTEs1NjU3ZThtVkJtSUhxOUJMbkFvSUJBUURMenhyeUNCaEgKVGVXQ3ZFcXYvV2l1d29yWTF6MXJZRjUyWnhXa3d1YlowbCt5RkRFOXhzZk5pZFZCc2hXM0pQanBESytidlpwMApscmdRS3NwdmZnYmszczVSb1RLbXVoU0l4U3lzYzFnRi9QdWRyME5uMXR5cTYwa0tFcUVPc0owbExjM0lQR2lSCldUVWNFa1F2ZStyc3Z1b0NMWGFOTjhhUTllN0tyVUJYdG9nb3o3enpnSThMSjdrdm9QcnBPamtQSG94dDVqTUcKSDBWeGY3aktZNzdLOVo4N3Z6UzRkby9RWE1XM3hrdTA0V21YUEpVZHc2TWRpbkpIMDc3SEFOUzhVUmxHTWRLUwo4S1dWMjZ4dHhEMmRZbXJaRmV1cVdNdWFOa0QxekZUOUFSaGhaVldCYWNFWnlDaUpNTXpwTUNhTGRWekgyNWFCCmVOelB6UVh3VkhNaEFvSUJBUUNwSnJBaUl6RTJGYnJXTFNQT1RhWGQ4dnpnUUlNNmJmVE9rblN3cWhCMk9nckcKMWs2QndXTkV5eXJaelQrUWxpYWUxUlRueE9pWnJTeVZkelJnNE9TbDAvbDRkMVdIQ2pzWURaVUpweDFlbTVxZwpTNUJPUklBTGZhSGl4aC9Idm43c2xZM2VmMFBySkRZN3BJRXJUdmFPMWErZC9JNlpPR3VLamJjWmQzbEZDOE1oCjlkUmo0SURvVkx6MUZpUkhjMWU1RFNEd2Q5SUh0Ynk2d2Q2dlpVMUJqU0djaWprVU8zSFlzY3VCOVlmajAzOXkKVXpsWDlrUEJZcnc0OGl2TEpkaFMyYVBvdlVBOWgrRFpzdGFYUGlMY0dzaE9CSVZUZU55dHBVek01VDNVRzdJZwpnQVpSUUQ0V2dSaW9mdVR2U1BjR09sbkRZREVjRTZPWmQ0MGRhWjYzQW9JQkFDbFhrNUd4RHF1NEkyeEhvYWJkCmNwU3dwZFdpbzdUYVVZOFhEZzdqOGt3UkhwUlRBRUlWeG9YdEJiTlQyby9TRWlQRURRTThqTTVGbklTN0NXRmcKWVNtZ0FKNFNZdUhyTVNzbFJCQ2ZQU1hKMFlpRSt0bGZmbGUxYnBWNmZlMHE2bFdXV3YzWk15VDR3WXMyTVZxbwplbGtYeVFRMEVLNUl1Q0REb25LK2ZpVE14QVh6VGRMZkt5VUtJOGlEa1NJcVMxVER6NXlqYTRvOFlhdktTc1BUClErcUx0SWM4SEFlbkZUa2crSUowMlBxU0Z3YzBwTkxxMG5XMWxjVDRNT1RSU0ZZQzVXdVZ3NjlHM1cvdXBhV0cKZnpFanU2VFppM3A4bEtCdGpQUFBSUllsV0xxNUFZVkUzSVRNVTF5dzU0QU40bU83cE54dHNMUUd2bFB3dE5teApaOEVDZ2dFQWR0QUd5dENYbzluTHpEYTZJRjJTMUxLVVFMMkJmNlRhNXhTQloweFcyMGtaMGY5S0E3ODZMeFNOCllVTVlrVnBCcFJtM25rSEpVdU1uT1JQYitoaFFRalB4YUowcnhld0tFMWhFeWwrSjhsZ3hkOXYvVDFjdDhveTgKZU8rdVZhOFR2NEhSSkdRU2RROVoxZlMrTWxDVnFCZDZDN3FtbjhzWHZNRHpOa0lBUU9TUDE0cWVCblFsZ01jQgpRVDAzMHRoV1l4d1FYZEZyN1p5RFlsWXkwOWs3K2szVVZCRFNoWEVxMkVwRzRKc3J3cG1XY3VZZXJvYjJhbC9LCnRhSWljb1J6alJ5UXZSczlwR2pYczgyaFQxL015TWdtY1JZV3B5RTVJS0daQm84Njd0SVp3OFQ2Y1R0enB2RnYKc1h4SU5kTStLYXpkYnNLL0dJSjZoTXZ1TDZNek9nPT0KLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLQo="
-#   # Existing secret must contains keys with name "cert.pem" and "key.pem"
-#   existingSecret: ""
+## @param certificate.mountPath Base path for mounting certificates
+## @param certificate.certificateBase64 Base64 encoded certificate
+## @param certificate.privatekeyBase64 Base64 encoded private key
+## @param certificate.existingSecret Name of existing secret containing certificate and private key. Secret must contain keys with name "cert.pem" and "key.pem"
+certificate:
+  mountPath: /app/cert
+  certificateBase64: ""
+  privatekeyBase64: ""
+  existingSecret: ""
 
-# lsdConfig:
-#   public_base_url: ""
-#   username: ""
-#   password: ""
+## @param lsdConfig.public_base_url Public base URL for LSD (Licensing Status Server)
+## @param lsdConfig.username Username for LSD authentication
+## @param lsdConfig.password Password for LSD authentication
+lsdConfig:
+  public_base_url: ""
+  username: ""
+  password: ""
 
-# objectStoreS3:
-#   endpoint: "http://minio.minio.svc.cluster.local:9000"
-#   access_id: "readium"
-#   secret: ""
-#   token: ""
-#   bucket: "readium"
-#   region: "us-east-1"
-#   disable_ssl: true
-#   pathStyle: ""
+## @param objectStoreS3.endpoint Endpoint URL for S3 object store
+## @param objectStoreS3.access_id Access ID for S3 authentication
+## @param objectStoreS3.secret Secret key for S3 authentication
+## @param objectStoreS3.token Token for S3 authentication (optional)
+## @param objectStoreS3.bucket Bucket name
+## @param objectStoreS3.region Region of the S3 bucket
+## @param objectStoreS3.disable_ssl Disable SSL for S3 connection
+## @param objectStoreS3.pathStyle Use path-style addressing for S3 (optional)
+objectStoreS3:
+  endpoint: "http://minio.minio.svc.cluster.local:9000"
+  access_id: "readium"
+  secret: ""
+  token: ""
+  bucket: "readium"
+  region: "us-east-1"
+  disable_ssl: true
+  pathStyle: ""
 
-# localization:
-#   languages: ""
-#   folder: ""
-#   default_language: ""
+## @param localization.languages Comma-separated array of supported languages
+## @param localization.folder Folder for localization files
+## @param localization.default_language Default language for localization
+localization:
+  languages: []
+  folder: ""
+  default_language: ""
 
-# aes256_cbc_or_gcm: "_GCM"
+## @param aes256_cbc_or_gcm Description for aes256_cbc_or_gcm parameter
+aes256_cbc_or_gcm: "_GCM"
 
-# serviceAccount:
-#   # Specifies whether a service account should be created
-#   create: true
-#   # Automatically mount a ServiceAccount's API credentials?
-#   automount: true
-#   # Annotations to add to the service account
-#   annotations: {}
-#   # The name of the service account to use.
-#   # If not set and create is true, a name is generated using the fullname template
-#   name: ""
+## @param serviceAccount.create Specifies whether a service account should be created
+## @param serviceAccount.automount Automatically mount a ServiceAccount's API credentials
+## @param serviceAccount.annotations Annotations to add to the service account
+## @param serviceAccount.name The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
 
-# podAnnotations: {}
-# podLabels: {}
+## @param podAnnotations Additional annotations to add to the pods
+podAnnotations: {}
+## @param podLabels Additional labels to add to the pods.
+podLabels: {}
 
-# podSecurityContext: {}
-#   # fsGroup: 2000
+## @param podSecurityContext Security context for the pods.
+podSecurityContext: {}
+  # fsGroup: 2000
 
-# securityContext: {}
-#   # capabilities:
-#   #   drop:
-#   #   - ALL
-#   # readOnlyRootFilesystem: true
-#   # runAsNonRoot: true
-#   # runAsUser: 1000
+## @param securityContext Security context for containers within the pods.
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 
-# service:
-#   type: ClusterIP
-#   port: 8080
+## @param service.type Type of Kubernetes service (e.g., ClusterIP, NodePort, LoadBalancer)
+## @param service.port Port number for the service.
+service:
+  type: ClusterIP
+  port: 8080
 
-# ingress:
-#   enabled: false
-#   className: ""
-#   annotations: {}
-#     # kubernetes.io/ingress.class: nginx
-#     # kubernetes.io/tls-acme: "true"
-#   hosts:
-#     - host: chart-example.local
-#       paths:
-#         - path: /
-#           pathType: ImplementationSpecific
-#   tls: []
-#   #  - secretName: chart-example-tls
-#   #    hosts:
-#   #      - chart-example.local
+## @param ingress.enabled Enable or disable Ingress.
+## @param ingress.className Ingress class name.
+## @param ingress.annotations Additional annotations for the Ingress.
+## @param ingress.hosts Hostnames associated with the Ingress.
+## @param ingress.tls TLS configuration for the Ingress.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts: {}
+    # - host: chart-example.local
+    #   paths:
+    #     - path: /
+    #       pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
-# resources: {}
-#   # We usually recommend not to specify default resources and to leave this as a conscious
-#   # choice for the user. This also increases chances charts run on environments with little
-#   # resources, such as Minikube. If you do want to specify resources, uncomment the following
-#   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-#   # limits:
-#   #   cpu: 100m
-#   #   memory: 128Mi
-#   # requests:
-#   #   cpu: 100m
-#   #   memory: 128Mi
+## @param resources Resource requests and limits configuration
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
-# # livenessProbe:
-# #   httpGet:
-# #     path: /
-# #     port: http
-# # readinessProbe:
-# #   httpGet:
-# #     path: /
-# #     port: http
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: http
 
-# autoscaling:
-#   enabled: false
-#   minReplicas: 1
-#   maxReplicas: 100
-#   targetCPUUtilizationPercentage: 80
-#   # targetMemoryUtilizationPercentage: 80
+## @param autoscaling.enabled Enable or disable Horizontal Pod Autoscaler.
+## @param autoscaling.minReplicas Minimum number of replicas.
+## @param autoscaling.maxReplicas Maximum number of replicas.
+## @param autoscaling.targetCPUUtilizationPercentage Target CPU utilization percentage.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
 
-# additionalVolumes: []
+## @param additionalVolumes Array of additional volumes to create
+additionalVolumes: []
 
-# additionalVolumeMounts: []
+## @param additionalVolumeMounts Array of additional volumes to mount to container
+additionalVolumeMounts: []
 
-# nodeSelector: {}
+## @param nodeSelector Node selector configuration
+nodeSelector: {}
 
-# tolerations: []
+## @param tolerations Tolerations configuration
+tolerations: []
 
-# affinity: {}
+## @param affinity Affinity configuration
+affinity: {}
 
-# mysql:
-#   enabled: true
-#   auth:
-#     rootPassword: "lcpserver"
-#     database: "lcpserver"
-#     username: "lcpserver"
-#     password: "lcpserver"
-#   primary:
-#     persistence:
-#       size: 1Gi
-#   initdbScripts:
-#     mysql_db_setup_lcpserver.sql: |
-#       CREATE TABLE `content` (
-#           `id` varchar(255) PRIMARY KEY NOT NULL,
-#           `encryption_key` varbinary(64) NOT NULL,
-#           `location` text NOT NULL,
-#           `length` bigint(20),
-#           `sha256` varchar(64),
-#           `type` varchar(255) NOT NULL DEFAULT 'application/epub+zip'
-#       );
+## @section MySQL parameters
+## @param mysql.enabled Enable MySQL
+## @param mysql.auth.rootPassword Root password for MySQL
+## @param mysql.auth.database Database name for MySQL
+## @param mysql.auth.username Username for MySQL
+## @param mysql.auth.password Password for MySQL
+## @param mysql.primary.persistence.size Size of persistent volume
+## @param mysql.initdbScripts Initialization scripts containing required tables for License server
+mysql:
+  enabled: true
+  auth:
+    rootPassword: "lcpserver"
+    database: "lcpserver"
+    username: "lcpserver"
+    password: "lcpserver"
+  primary:
+    persistence:
+      size: 1Gi
+  initdbScripts: {}
+    # mysql_db_setup_lcpserver.sql: |
+    #   CREATE TABLE `content` (
+    #       `id` varchar(255) PRIMARY KEY NOT NULL,
+    #       `encryption_key` varbinary(64) NOT NULL,
+    #       `location` text NOT NULL,
+    #       `length` bigint(20),
+    #       `sha256` varchar(64),
+    #       `type` varchar(255) NOT NULL DEFAULT 'application/epub+zip'
+    #   );
 
-#       CREATE TABLE `license` (
-#           `id` varchar(255) PRIMARY KEY NOT NULL,
-#           `user_id` varchar(255) NOT NULL,
-#           `provider` varchar(255) NOT NULL,
-#           `issued` datetime NOT NULL,
-#           `updated` datetime DEFAULT NULL,
-#           `rights_print` int(11) DEFAULT NULL,
-#           `rights_copy` int(11) DEFAULT NULL,
-#           `rights_start` datetime DEFAULT NULL,
-#           `rights_end` datetime DEFAULT NULL,
-#           `content_fk` varchar(255) NOT NULL,
-#           `lsd_status` int(11) default 0,
-#           FOREIGN KEY(content_fk) REFERENCES content(id)
-#       );
+    #   CREATE TABLE `license` (
+    #       `id` varchar(255) PRIMARY KEY NOT NULL,
+    #       `user_id` varchar(255) NOT NULL,
+    #       `provider` varchar(255) NOT NULL,
+    #       `issued` datetime NOT NULL,
+    #       `updated` datetime DEFAULT NULL,
+    #       `rights_print` int(11) DEFAULT NULL,
+    #       `rights_copy` int(11) DEFAULT NULL,
+    #       `rights_start` datetime DEFAULT NULL,
+    #       `rights_end` datetime DEFAULT NULL,
+    #       `content_fk` varchar(255) NOT NULL,
+    #       `lsd_status` int(11) default 0,
+    #       FOREIGN KEY(content_fk) REFERENCES content(id)
+    #   );
