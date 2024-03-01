@@ -48,12 +48,17 @@ lcp:
   public_base_url: ""
   readonly: ""
 
-# database:
-#   host: "readium-stack-lcpserver-mysql"
-#   port: 3306
-#   database: lcpserver
-#   username: lcpserver
-#   password: lcpserver
+## @param database.host MySQL database host. Default host is automatically constructed from mysql dependency included in this chart.
+## @param database.port MySQL database port.
+## @param database.database MySQL database name. Default to mysql.auth.database parameter
+## @param database.username MySQL username name. Default to mysql.auth.username parameter
+## @param database.password MySQL password name. Default to mysql.auth.password parameter
+database:
+  host: ""
+  port: 3306
+  database: ""
+  username: ""
+  password: ""
 
 # certificate:
 #   mountPath: /app/cert
@@ -70,7 +75,7 @@ lcp:
 # objectStoreS3:
 #   endpoint: "http://minio.minio.svc.cluster.local:9000"
 #   access_id: "readium"
-#   secret: "UbusN6pcJhJ8dTV"
+#   secret: ""
 #   token: ""
 #   bucket: "readium"
 #   region: "us-east-1"
@@ -169,7 +174,6 @@ lcp:
 
 # mysql:
 #   enabled: true
-#   nameOverride: "lcpserver-mysql"
 #   auth:
 #     rootPassword: "lcpserver"
 #     database: "lcpserver"

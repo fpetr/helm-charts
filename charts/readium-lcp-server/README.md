@@ -33,3 +33,8 @@
 | `lcp.port`              | Listening port. Default to service.port parameter                                                                                                                       | `""`            |
 | `lcp.public_base_url`   | URL used by the Status Server and the Frontend Server to communicate with this License server. Automatically constructed using name of created service and service port | `""`            |
 | `lcp.readonly`          | Default to false                                                                                                                                                        | `""`            |
+| `database.host`         | MySQL database host. Default host is automatically constructed from mysql dependency included in this chart.                                                            | `""`            |
+| `database.port`         | MySQL database port.                                                                                                                                                    | `3306`          |
+| `database.database`     | MySQL database name. Default to mysql.auth.database parameter                                                                                                           | `""`            |
+| `database.username`     | MySQL username name. Default to mysql.auth.username parameter                                                                                                           | `""`            |
+| `database.password`     | MySQL password name. Default to mysql.auth.password parameter                                                                                                           | `""`            |

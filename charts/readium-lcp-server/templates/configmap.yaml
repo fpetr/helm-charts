@@ -1,13 +1,14 @@
 {{- $port := int .Values.service.port -}}
 {{- $public_base_url := printf "http://%s:%d" (include "lcpserver.fullname" .) $port -}}
 {{- $databasePort := int .Values.database.port | default 3306 -}}
-{{- $database_string := printf "mysql://%s:%s@(%s:%d)/%s?parseTime=true"
-    .Values.database.username
-    .Values.database.password
-    .Values.database.host
-    $databasePort
-    .Values.database.database
--}}
+{{- $mysqlAuth := .Values.mysql.auth -}}
+
+{{- $username := .Values.database.username | default $mysqlAuth.username -}}
+{{- $password := .Values.database.password | default $mysqlAuth.password -}}
+{{- $host := .Values.database.host | default (printf "%s-mysql" (include "lcpserver.fullname" .)) -}}
+{{- $database := .Values.database.database | default $mysqlAuth.database -}}
+{{- $database_string := printf "mysql://%s:%s@(%s:%d)/%s?parseTime=true" $username $password $host $databasePort $database -}}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
