@@ -1,0 +1,56 @@
+{{- $port := int .Values.service.port -}}
+{{- $public_base_url := printf "http://%s:%d" (include "lcpserver.fullname" .) $port -}}
+{{- $databasePort := int .Values.database.port | default 3306 -}}
+{{- $database_string := printf "mysql://%s:%s@(%s:%d)/%s?parseTime=true"
+    .Values.database.username
+    .Values.database.password
+    .Values.database.host
+    $databasePort
+    .Values.database.database
+-}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-config" (include "lcpserver.fullname" .) }}
+data:
+  config.yaml: |-
+    profile: {{ .Values.profile }}
+    lcp:
+      host: {{ .Values.lcp.host | default "0.0.0.0" }}
+      port: {{ .Values.lcp.port | default .Values.service.port }}
+      public_base_url: {{ .Values.lcp.public_base_url | default $public_base_url | quote }}
+      database: {{ $database_string }}
+      auth_file: {{ required "A valid path required for htpasswd file .Values.auth.authfileMountDir" .Values.auth.authfileMountDir }}
+      readonly: {{ .Values.lcp.readonly | default false }}
+
+    certificate:
+      cert: "{{ .Values.certificate.mountPath }}/cert.pem"
+      private_key: "{{ .Values.certificate.mountPath }}/key.pem"
+
+    lsd:
+      public_base_url: "{{ .Values.lsdConfig.public_base_url }}"
+    lsd_notify_auth:
+      username: "{{ .Values.lsdConfig.username | default .Values.auth.username }}"
+      password: "{{ .Values.lsdConfig.password | default .Values.auth.password }}"
+
+    storage:
+      mode: "s3"
+      endpoint: {{ .Values.objectStoreS3.endpoint }}
+      access_id: {{ .Values.objectStoreS3.access_id }}
+      disable_ssl: {{ .Values.objectStoreS3.disable_ssl }}
+      secret: {{ .Values.objectStoreS3.secret }}
+      bucket: {{ .Values.objectStoreS3.bucket }}
+      region: {{ .Values.objectStoreS3.region }}
+      {{- if .Values.objectStoreS3.token }}
+      token: {{ .Values.objectStoreS3.token }}
+      {{- end }}
+      {{- if .Values.objectStoreS3.token }}
+      pathStyle: {{ .Values.objectStoreS3.pathStyle }}
+      {{- end }}
+
+    localization:
+      languages: {{ .Values.localization.languages }}
+      folder: {{ .Values.localization.folder }}
+      default_language: {{ .Values.localization.default_language }}
+
+    aes256_cbc_or_gcm: {{ .Values.aes256_cbc_or_gcm }}

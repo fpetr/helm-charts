@@ -1,0 +1,11 @@
+apiVersion: v2
+name: lcpserver
+description: A Helm chart for Readium Licence Server
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+- name: mysql
+  version: "9.22.0"
+  repository: https://charts.bitnami.com/bitnami
+  condition: mysql.enabled
