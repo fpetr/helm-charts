@@ -52,8 +52,8 @@ database:
   password: ""
 
 ## @param certificate.mountPath Base path for mounting certificates
-## @param certificate.certificateBase64 Base64 encoded certificate
-## @param certificate.privatekeyBase64 Base64 encoded private key
+## @param certificate.certificateBase64 Base64 encoded certificate. If empty, uses default test certificate
+## @param certificate.privatekeyBase64 Base64 encoded private key. If empty, uses default test private key
 ## @param certificate.existingSecret Name of existing secret containing certificate and private key. Secret must contain keys with name "cert.pem" and "key.pem"
 certificate:
   mountPath: /app/cert

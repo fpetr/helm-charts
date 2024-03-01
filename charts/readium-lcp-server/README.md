@@ -1,4 +1,4 @@
-# Readium License Server
+# Readium License Server Helm Chart
 
 ## Parameters
 
@@ -31,8 +31,8 @@
 | `database.username`             | MySQL username name. Default to mysql.auth.username parameter                                                                                                           | `""`                                        |
 | `database.password`             | MySQL password name. Default to mysql.auth.password parameter                                                                                                           | `""`                                        |
 | `certificate.mountPath`         | Base path for mounting certificates                                                                                                                                     | `/app/cert`                                 |
-| `certificate.certificateBase64` | Base64 encoded certificate                                                                                                                                              | `""`                                        |
-| `certificate.privatekeyBase64`  | Base64 encoded private key                                                                                                                                              | `""`                                        |
+| `certificate.certificateBase64` | Base64 encoded certificate. If empty, uses default test certificate                                                                                                     | `""`                                        |
+| `certificate.privatekeyBase64`  | Base64 encoded private key. If empty, uses default test private key                                                                                                     | `""`                                        |
 | `certificate.existingSecret`    | Name of existing secret containing certificate and private key. Secret must contain keys with name "cert.pem" and "key.pem"                                             | `""`                                        |
 | `lsdConfig.public_base_url`     | Public base URL for LSD (Licensing Status Server)                                                                                                                       | `""`                                        |
 | `lsdConfig.username`            | Username for LSD authentication                                                                                                                                         | `""`                                        |
