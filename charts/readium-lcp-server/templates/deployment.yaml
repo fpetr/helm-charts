@@ -37,8 +37,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # command: ["sleep"]
-          # args: ["3600"]
           env:
             {{- include "helpers.list-env-variables" . | indent 12 }}
             - name: READIUM_LCPSERVER_CONFIG
