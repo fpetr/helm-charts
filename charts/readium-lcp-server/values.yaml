@@ -4,7 +4,7 @@
 ## @param image.tag Image tag
 ## @param imagePullSecrets [array] Specify docker-registry secret names as an array
 image:
-  repository: ""
+  repository: "ghcr.io/fpetr/readium-lcp-server-docker-helm/lcpserver"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
