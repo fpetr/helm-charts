@@ -1,12 +1,11 @@
 ## @section Image configuration
-## @param image.repository Image repository. There is no official public image yet. You need to build your own.
+## @param image.repository Image repository. There is no official public image yet.
 ## @param image.pullPolicy Image pull policy
-## @param image.tag Image tag
+## @param image.tag Image tag. Overrides the image tag whose default is the chart appVersion.
 ## @param imagePullSecrets [array] Specify docker-registry secret names as an array
 image:
-  repository: ""
+  repository: "ghcr.io/fpetr/readium-lcp-server-docker-helm/lcpserver"
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
 imagePullSecrets: []
@@ -69,7 +68,27 @@ lsdConfig:
   username: ""
   password: ""
 
-## @param objectStoreS3.endpoint Endpoint URL for S3 object store
+## @param fileSystemStore.enabled Enable storage of encrypted publications on filesystem instead of S3 objedt storage
+## @param fileSystemStore.directory Absolute path of the directory in which all encrypted publications are stored
+## @param fileSystemStore.url Absolute http or https url of the storage volume in which all encrypted publications are stored
+## @param fileSystemStore.persistence.enabled Enable persitent volume
+## @param fileSystemStore.persistence.labels Additional labels to add to the PVC
+## @param fileSystemStore.persistence.accessMode Access mode for the persistent volume
+## @param fileSystemStore.persistence.size Size of the persistent volume
+## @param fileSystemStore.persistence.storageClassName Name of the storage class to use for the persistent volume
+fileSystemStore:
+  enabled: false
+  directory: "/app/data"
+  url: ""
+  persistence:
+    enabled: false
+    labels: {}
+    accessMode: "ReadWriteOnce"
+    size: 1Gi
+    storageClassName: ""
+
+## @param objectStoreS3.enabled Enable storage of encrypted publications in S3 object storage. Either fileSystemStore or objectStoreS3 should be enabled but not both
+## @param objectStoreS3.endpoint Endpoint URL for S3 object store. Defaults to automatically constructed endpoint from release name
 ## @param objectStoreS3.access_id Access ID for S3 authentication
 ## @param objectStoreS3.secret Secret key for S3 authentication
 ## @param objectStoreS3.token Token for S3 authentication (optional)
@@ -78,9 +97,10 @@ lsdConfig:
 ## @param objectStoreS3.disable_ssl Disable SSL for S3 connection
 ## @param objectStoreS3.pathStyle Use path-style addressing for S3 (optional)
 objectStoreS3:
-  endpoint: "http://readium-lcpserver-minio:9000"
+  enabled: true
+  endpoint: ""
   access_id: "readium"
-  secret: "readium"
+  secret: "readiumreadium"
   token: ""
   bucket: "readium"
   region: "us-east-1"
@@ -102,10 +122,14 @@ aes256_cbc_or_gcm: "_GCM"
 ## @param nameOverride String to partially override lcpserver.name template (will maintain the release name)
 ## @param fullnameOverride String to fully override lcpserver.name template
 ## @param replicaCount Desired number of replicas
+## @param strategy Deployment strategy to use. Defaults to RollingUpdate. If you enabled fileSystemStore persistence, change this to "Recreate"
 nameOverride: ""
 fullnameOverride: ""
 
 replicaCount: 1
+
+strategy: "RollingUpdate"
+
 ## @param serviceAccount.create Specifies whether a service account should be created
 ## @param serviceAccount.automount Automatically mount a ServiceAccount's API credentials
 ## @param serviceAccount.annotations Annotations to add to the service account
@@ -174,14 +198,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-# livenessProbe:
-#   httpGet:
-#     path: /
-#     port: http
-# readinessProbe:
-#   httpGet:
-#     path: /
-#     port: http
+## @param livenessProbe.tcpSocket.port Port for liviness probe health check
+## @param readinessProbe.tcpSocket.port Port for readiness probe health check
+livenessProbe:
+  tcpSocket:
+    port: http
+readinessProbe:
+  tcpSocket:
+    port: http
 
 ## @param autoscaling.enabled Enable or disable Horizontal Pod Autoscaler.
 ## @param autoscaling.minReplicas Minimum number of replicas.
@@ -270,7 +294,7 @@ minio:
   enabled: true
   auth:
     rootUser: readium
-    rootPassword: readium
+    rootPassword: readiumreadium
   defaultBuckets: "readium"
   persistence:
     size: 1Gi

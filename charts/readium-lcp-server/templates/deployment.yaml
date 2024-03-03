@@ -11,6 +11,8 @@ spec:
   selector:
     matchLabels:
       {{- include "lcpserver.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: {{ .Values.strategy | default "RollingUpdate" }}
   template:
     metadata:
       annotations:
@@ -64,6 +66,10 @@ spec:
             - name: htpasswd
               mountPath: {{ .Values.auth.authfileMountDir }}
               readOnly: true
+            {{- if and .Values.fileSystemStore.enabled .Values.fileSystemStore.persistence.enabled }}
+            - name: data
+              mountPath: {{ .Values.fileSystemStore.directory }}
+            {{- end }}
       volumes:
         {{- if .Values.additionalVolumes -}}
         {{- toYaml .Values.additionalVolumes | nindent 8 }}
@@ -85,6 +91,11 @@ spec:
             {{- else }}
             secretName: {{ printf "%s-htpasswd" (include "lcpserver.fullname" .) }}
             {{- end }}
+      {{- if and .Values.fileSystemStore.enabled .Values.fileSystemStore.persistence.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ printf "%s-data" (include "lcpserver.fullname" .) }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
