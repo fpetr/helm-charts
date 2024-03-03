@@ -4,6 +4,9 @@ description: Readium Licence Server
 type: application
 version: 0.0.1
 appVersion: "0.0.1"
+maintainers:
+  - name: fpetr
+    email: petr.frantisek@gmail.com
 dependencies:
 - name: mysql
   version: "9.22.0"
