@@ -1,5 +1,5 @@
 # Readium License Server Helm Chart
-Install [readium-lcp-server](https://github.com/readium/readium-lcp-server) on kubernetes using mysql and s3 storage. Currently there is no official docker image available. You need to build your own. There is already example in [official repository](https://github.com/readium/readium-lcp-server/tree/cd/docker).
+Install [readium-lcp-server](https://github.com/readium/readium-lcp-server) on kubernetes using mysql and s3 storage. Currently there is no official docker image available. You need to build your own or use one provided with this helm chart. There is already example in [official repository](https://github.com/readium/readium-lcp-server/tree/cd/docker).
 
 Disclaimer: This chart is not suitable for production usage. It only contains test certificate and basic LCP profile. This profile, because it is open, does not offer any security. Security is provided by a "production" profile, i.e. confidential crypto information and a personal X.509 certificate delivered to trusted implementers by [EDRLab](mailto:contact@edrlab.org). EDRLab is the wordwide LCP Certification Authority. Licenses generated with the "production" profile are handled by any LCP compliant Reading System.
 
