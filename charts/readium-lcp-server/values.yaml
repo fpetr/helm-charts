@@ -9,8 +9,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-imagePullSecrets:
-  - name: registry.gitlab.com
+imagePullSecrets: []
+  # - name: registry.gitlab.com
 
 ## @section License server parameters
 ## @param profile Value of LCP profile. Allowed values are "basic" or "1.0"
@@ -78,9 +78,9 @@ lsdConfig:
 ## @param objectStoreS3.disable_ssl Disable SSL for S3 connection
 ## @param objectStoreS3.pathStyle Use path-style addressing for S3 (optional)
 objectStoreS3:
-  endpoint: "http://minio.minio.svc.cluster.local:9000"
+  endpoint: "http://readium-lcpserver-minio:9000"
   access_id: "readium"
-  secret: ""
+  secret: "readium"
   token: ""
   bucket: "readium"
   region: "us-east-1"
@@ -194,6 +194,13 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+## @param extraEnvVars Extra environment variables to be set on container
+## e.g:
+## extraEnvVars:
+##   KEY: VALUE
+##
+extraEnvVars: {}
+
 ## @param additionalVolumes Array of additional volumes to create
 additionalVolumes: []
 
@@ -216,7 +223,7 @@ affinity: {}
 ## @param mysql.auth.username Username for MySQL
 ## @param mysql.auth.password Password for MySQL
 ## @param mysql.primary.persistence.size Size of persistent volume
-## @param mysql.initdbScripts Initialization scripts containing required tables for License server
+## @param mysql.initdbScripts.mysql_db_setup_lcpserver.sql [default: "Check script in values.yaml"] Initialization scripts containing required tables for License server
 mysql:
   enabled: true
   auth:
@@ -227,28 +234,43 @@ mysql:
   primary:
     persistence:
       size: 1Gi
-  initdbScripts: {}
-    # mysql_db_setup_lcpserver.sql: |
-    #   CREATE TABLE `content` (
-    #       `id` varchar(255) PRIMARY KEY NOT NULL,
-    #       `encryption_key` varbinary(64) NOT NULL,
-    #       `location` text NOT NULL,
-    #       `length` bigint(20),
-    #       `sha256` varchar(64),
-    #       `type` varchar(255) NOT NULL DEFAULT 'application/epub+zip'
-    #   );
+  initdbScripts:
+    mysql_db_setup_lcpserver.sql: |
+      CREATE TABLE `content` (
+          `id` varchar(255) PRIMARY KEY NOT NULL,
+          `encryption_key` varbinary(64) NOT NULL,
+          `location` text NOT NULL,
+          `length` bigint(20),
+          `sha256` varchar(64),
+          `type` varchar(255) NOT NULL DEFAULT 'application/epub+zip'
+      );
 
-    #   CREATE TABLE `license` (
-    #       `id` varchar(255) PRIMARY KEY NOT NULL,
-    #       `user_id` varchar(255) NOT NULL,
-    #       `provider` varchar(255) NOT NULL,
-    #       `issued` datetime NOT NULL,
-    #       `updated` datetime DEFAULT NULL,
-    #       `rights_print` int(11) DEFAULT NULL,
-    #       `rights_copy` int(11) DEFAULT NULL,
-    #       `rights_start` datetime DEFAULT NULL,
-    #       `rights_end` datetime DEFAULT NULL,
-    #       `content_fk` varchar(255) NOT NULL,
-    #       `lsd_status` int(11) default 0,
-    #       FOREIGN KEY(content_fk) REFERENCES content(id)
-    #   );
+      CREATE TABLE `license` (
+          `id` varchar(255) PRIMARY KEY NOT NULL,
+          `user_id` varchar(255) NOT NULL,
+          `provider` varchar(255) NOT NULL,
+          `issued` datetime NOT NULL,
+          `updated` datetime DEFAULT NULL,
+          `rights_print` int(11) DEFAULT NULL,
+          `rights_copy` int(11) DEFAULT NULL,
+          `rights_start` datetime DEFAULT NULL,
+          `rights_end` datetime DEFAULT NULL,
+          `content_fk` varchar(255) NOT NULL,
+          `lsd_status` int(11) default 0,
+          FOREIGN KEY(content_fk) REFERENCES content(id)
+      );
+
+## @section MinIO parameters
+## @param minio.enabled Enable or disable MinIO deployment
+## @param minio.auth.rootUser MinIO&reg; root username
+## @param minio.auth.rootPassword Password for MinIO&reg; root user
+## @param minio.defaultBuckets Comma, semi-colon or space separated list of buckets to create at initialization (only in standalone mode)
+## @param minio.persistence.size PVC Storage Request for MinIO&reg; data volume
+minio:
+  enabled: true
+  auth:
+    rootUser: readium
+    rootPassword: readium
+  defaultBuckets: "readium"
+  persistence:
+    size: 1Gi

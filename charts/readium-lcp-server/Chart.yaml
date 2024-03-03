@@ -2,13 +2,24 @@ apiVersion: v2
 name: readium-lcpserver
 description: Readium Licence Server
 type: application
-version: 0.0.1
-appVersion: "0.0.1"
+version: 0.0.2
+appVersion: "0.0.2"
 maintainers:
   - name: fpetr
     email: petr.frantisek@gmail.com
+annotations:
+  "artifacthub.io/license": Apache-2.0
+  "artifacthub.io/links": |
+    - name: Chart Source
+      url: https://github.com/fpetr/helm-charts
+    - name: Upstream Project
+      url: https://github.com/readium/readium-lcp-server
 dependencies:
 - name: mysql
   version: "9.22.0"
   repository: https://charts.bitnami.com/bitnami
   condition: mysql.enabled
+- name: minio
+  version: "13.7.0"
+  repository: https://charts.bitnami.com/bitnami
+  condition: minio.enabled

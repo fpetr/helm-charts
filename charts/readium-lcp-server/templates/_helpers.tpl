@@ -62,15 +62,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "helpers.list-env-variables"}}
-{{- $secretName := include "lcpserver.fullname" . -}}
-{{- range $key, $val := .Values.secrets }}
-- name: {{ $key }}
-  valueFrom:
-    secretKeyRef:
-      name: {{ $secretName }}
-      key: {{ $key }}
-{{- end}}
-{{- range $key, $val := .Values.env }}
+{{- range $key, $val := .Values.extraEnvVars }}
 - name: {{ $key }}
   value: {{ $val | quote }}
 {{- end}}
