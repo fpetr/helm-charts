@@ -1,13 +1,44 @@
 # Readium License Server Helm Chart
 Install [readium-lcp-server](https://github.com/readium/readium-lcp-server) on kubernetes using mysql and s3 storage. Currently there is no official docker image available. You need to build your own. There is already example in [official repository](https://github.com/readium/readium-lcp-server/tree/cd/docker).
 
+Disclaimer: This chart is not suitable for production usage. It only contains test certificate and basic LCP profile. This profile, because it is open, does not offer any security. Security is provided by a "production" profile, i.e. confidential crypto information and a personal X.509 certificate delivered to trusted implementers by [EDRLab](mailto:contact@edrlab.org). EDRLab is the wordwide LCP Certification Authority. Licenses generated with the "production" profile are handled by any LCP compliant Reading System.
+
 ## Prerequisites
 - Kubernetes 1.19+
 - Helm 3+
+- PV provisioner support in the underlying infrastructure
 
 ## Dependencies
 By default this chart installs additional, dependent charts:
 - [bitnami/mysql](https://github.com/bitnami/charts/tree/main/bitnami/mysql)
+- [bitnami/minio](https://github.com/bitnami/charts/tree/main/bitnami/minio)
+
+## Installing the Chart
+Add chart repository:
+
+```console
+helm repo add fpetr https://fpetr.github.io/helm-charts
+helm repo update
+```
+
+To install the chart with the release name `my-release`:
+
+```console
+helm install my-release fpetr/readium-lcpserver
+```
+
+These commands deploy Readium Licenser Server on the Kubernetes cluster in the default configuration using MySQL as database and MinIO as storage. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+
+
+## Uninstalling the Chart
+
+To uninstall/delete the `my-release` deployment:
+
+```console
+helm delete my-release
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release. As MySQL dependency is Stateful set application, you need to manually remove created PVC.
 
 ## Parameters
 
