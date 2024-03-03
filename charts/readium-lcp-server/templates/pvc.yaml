@@ -1,0 +1,20 @@
+{{- if and .Values.fileSystemStore.enabled .Values.fileSystemStore.persistence.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ printf "%s-data" (include "lcpserver.fullname" .) }}
+  labels:
+    {{- include "lcpserver.labels" . | nindent 4 }}
+    {{- with .Values.fileSystemStore.persistence.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+    - {{ .Values.fileSystemStore.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.fileSystemStore.persistence.size }}
+  {{- if .Values.fileSystemStore.persistence.storageClassName }}
+  storageClassName: {{ .Values.fileSystemStore.persistence.storageClassName }}
+  {{- end }}
+{{- end }}

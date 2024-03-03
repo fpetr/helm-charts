@@ -9,6 +9,9 @@
 {{- $database := .Values.database.database | default $mysqlAuth.database -}}
 {{- $database_string := printf "mysql://%s:%s@(%s:%d)/%s?parseTime=true" $username $password $host $databasePort $database -}}
 
+{{- $defaultMinioHost := printf "%s-minio" (include "lcpserver.fullname" .) -}}
+{{- $defaultMinioPort := int .Values.minio.service.ports.api | default 9000 -}}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -34,9 +37,25 @@ data:
       username: "{{ .Values.lsdConfig.username | default .Values.auth.username }}"
       password: "{{ .Values.lsdConfig.password | default .Values.auth.password }}"
 
+    {{ if and .Values.fileSystemStore.enabled .Values.objectStoreS3.enabled -}}
+    {{ printf  "Both fileSystemStore and objectStoreS3 cannot be enabled simultaneously. Please enable only one storage mode." | fail -}}
+    {{ end -}}
+    {{ if .Values.fileSystemStore.enabled -}}
+    storage:
+      mode: "fs"
+      filesystem:
+        {{ if .Values.fileSystemStore.directory -}}
+        directory: {{ .Values.fileSystemStore.directory }}
+        {{ end -}}
+        {{ if .Values.fileSystemStore.url -}}
+        url: {{ .Values.fileSystemStore.url }}
+        {{ end -}}
+    {{ end -}}
+
+    {{ if .Values.objectStoreS3.enabled -}}
     storage:
       mode: "s3"
-      endpoint: {{ .Values.objectStoreS3.endpoint }}
+      endpoint: {{ .Values.objectStoreS3.endpoint | default (printf "http://%s:%d" $defaultMinioHost $defaultMinioPort) }}
       access_id: {{ .Values.objectStoreS3.access_id }}
       disable_ssl: {{ .Values.objectStoreS3.disable_ssl }}
       secret: {{ .Values.objectStoreS3.secret }}
@@ -48,6 +67,7 @@ data:
       {{- if .Values.objectStoreS3.token }}
       pathStyle: {{ .Values.objectStoreS3.pathStyle }}
       {{- end }}
+    {{- end }}
 
     localization:
       languages: {{ .Values.localization.languages }}

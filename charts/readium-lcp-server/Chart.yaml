@@ -3,7 +3,7 @@ name: readium-lcpserver
 description: Readium License Server
 type: application
 version: 0.0.4
-appVersion: "v0.0.4"
+appVersion: "1.9.0"
 maintainers:
   - name: fpetr
     email: petr.frantisek@gmail.com
