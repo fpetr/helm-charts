@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  readium-lcpserver:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2024-03-03T07:56:28.728504681Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.22.0
+    description: Readium Licence Server
+    digest: 6462904e8e78c9feb46486bc4af023e0c547ce3a6f8b915203a54bbb3df589ac
+    maintainers:
+    - email: petr.frantisek@gmail.com
+      name: fpetr
+    name: readium-lcpserver
+    type: application
+    urls:
+    - https://github.com/fpetr/helm-charts/releases/download/readium-lcpserver-0.0.1/readium-lcpserver-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-03-03T07:56:28.728514319Z"
