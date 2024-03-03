@@ -44,12 +44,12 @@ The command removes all the Kubernetes components associated with the chart and 
 
 ### Image configuration
 
-| Name               | Description                                              | Value                                                    |
-| ------------------ | -------------------------------------------------------- | -------------------------------------------------------- |
-| `image.repository` | Image repository. There is no official public image yet. | `ghcr.io/fpetr/readium-lcp-server-docker-helm/lcpserver` |
-| `image.pullPolicy` | Image pull policy                                        | `IfNotPresent`                                           |
-| `image.tag`        | Image tag                                                | `""`                                                     |
-| `imagePullSecrets` | Specify docker-registry secret names as an array         | `[]`                                                     |
+| Name               | Description                                                               | Value                                                    |
+| ------------------ | ------------------------------------------------------------------------- | -------------------------------------------------------- |
+| `image.repository` | Image repository. There is no official public image yet.                  | `ghcr.io/fpetr/readium-lcp-server-docker-helm/lcpserver` |
+| `image.pullPolicy` | Image pull policy                                                         | `IfNotPresent`                                           |
+| `image.tag`        | Image tag. Overrides the image tag whose default is the chart appVersion. | `""`                                                     |
+| `imagePullSecrets` | Specify docker-registry secret names as an array                          | `[]`                                                     |
 
 ### License server parameters
 
@@ -77,15 +77,15 @@ The command removes all the Kubernetes components associated with the chart and 
 | `lsdConfig.public_base_url`                    | Public base URL for LSD (Licensing Status Server)                                                                                                                       | `""`             |
 | `lsdConfig.username`                           | Username for LSD authentication                                                                                                                                         | `""`             |
 | `lsdConfig.password`                           | Password for LSD authentication                                                                                                                                         | `""`             |
-| `fileSystemStore.enabled`                      | Enable storage of encrypted publications on filesystem instead of S3 objedt storage                                                                                     | `true`           |
+| `fileSystemStore.enabled`                      | Enable storage of encrypted publications on filesystem instead of S3 object storage. Either fileSystemStore or objectStoreS3 should be enabled but not both             | `false`          |
 | `fileSystemStore.directory`                    | Absolute path of the directory in which all encrypted publications are stored                                                                                           | `/app/data`      |
 | `fileSystemStore.url`                          | Absolute http or https url of the storage volume in which all encrypted publications are stored                                                                         | `""`             |
-| `fileSystemStore.persistence.enabled`          | Enable persitent volume                                                                                                                                                 | `true`           |
+| `fileSystemStore.persistence.enabled`          | Enable persistent volume                                                                                                                                                | `false`          |
 | `fileSystemStore.persistence.labels`           | Additional labels to add to the PVC                                                                                                                                     | `{}`             |
 | `fileSystemStore.persistence.accessMode`       | Access mode for the persistent volume                                                                                                                                   | `ReadWriteOnce`  |
 | `fileSystemStore.persistence.size`             | Size of the persistent volume                                                                                                                                           | `1Gi`            |
 | `fileSystemStore.persistence.storageClassName` | Name of the storage class to use for the persistent volume                                                                                                              | `""`             |
-| `objectStoreS3.enabled`                        | Enable storage of encrypted publications in S3 object storage. Either fileSystemStore or objectStoreS3 should be enabled but not both                                   | `false`          |
+| `objectStoreS3.enabled`                        | Enable storage of encrypted publications in S3 object storage. Either fileSystemStore or objectStoreS3 should be enabled but not both                                   | `true`           |
 | `objectStoreS3.endpoint`                       | Endpoint URL for S3 object store. Defaults to automatically constructed endpoint from release name                                                                      | `""`             |
 | `objectStoreS3.access_id`                      | Access ID for S3 authentication                                                                                                                                         | `readium`        |
 | `objectStoreS3.secret`                         | Secret key for S3 authentication                                                                                                                                        | `readiumreadium` |
@@ -123,8 +123,8 @@ The command removes all the Kubernetes components associated with the chart and 
 | `ingress.hosts`                              | Hostnames associated with the Ingress.                                                                                       | `{}`            |
 | `ingress.tls`                                | TLS configuration for the Ingress.                                                                                           | `[]`            |
 | `resources`                                  | Resource requests and limits configuration                                                                                   | `{}`            |
-| `livenessProbe.tcpSocket.port`               | Port for liviness probe health check                                                                                         | `http`          |
-| `readinessProbe.tcpSocket.port`              | Port for readiness probe health check                                                                                        | `http`          |
+| `livenessProbe`                              | Configuration of the liveness probe.                                                                                         | `{}`            |
+| `readinessProbe`                             | Configuration of the readiness probe.                                                                                        | `{}`            |
 | `autoscaling.enabled`                        | Enable or disable Horizontal Pod Autoscaler.                                                                                 | `false`         |
 | `autoscaling.minReplicas`                    | Minimum number of replicas.                                                                                                  | `1`             |
 | `autoscaling.maxReplicas`                    | Maximum number of replicas.                                                                                                  | `100`           |

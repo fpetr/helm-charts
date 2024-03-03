@@ -68,10 +68,10 @@ lsdConfig:
   username: ""
   password: ""
 
-## @param fileSystemStore.enabled Enable storage of encrypted publications on filesystem instead of S3 objedt storage
+## @param fileSystemStore.enabled Enable storage of encrypted publications on filesystem instead of S3 object storage. Either fileSystemStore or objectStoreS3 should be enabled but not both
 ## @param fileSystemStore.directory Absolute path of the directory in which all encrypted publications are stored
 ## @param fileSystemStore.url Absolute http or https url of the storage volume in which all encrypted publications are stored
-## @param fileSystemStore.persistence.enabled Enable persitent volume
+## @param fileSystemStore.persistence.enabled Enable persistent volume
 ## @param fileSystemStore.persistence.labels Additional labels to add to the PVC
 ## @param fileSystemStore.persistence.accessMode Access mode for the persistent volume
 ## @param fileSystemStore.persistence.size Size of the persistent volume
@@ -198,8 +198,8 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-## @param livenessProbe.tcpSocket.port Port for liviness probe health check
-## @param readinessProbe.tcpSocket.port Port for readiness probe health check
+## @param livenessProbe [object] Configuration of the liveness probe.
+## @param readinessProbe [object] Configuration of the readiness probe.
 livenessProbe:
   tcpSocket:
     port: http
