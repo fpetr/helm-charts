@@ -1,15 +1,24 @@
 # Readium License Server Helm Chart
+Install [readium-lcp-server](https://github.com/readium/readium-lcp-server) on kubernetes using mysql and s3 storage. Currently there is no official docker image available. You need to build your own. There is already example in [official repository](https://github.com/readium/readium-lcp-server/tree/cd/docker).
+
+## Prerequisites
+- Kubernetes 1.19+
+- Helm 3+
+
+## Dependencies
+By default this chart installs additional, dependent charts:
+- [bitnami/mysql](https://github.com/bitnami/charts/tree/main/bitnami/mysql)
 
 ## Parameters
 
 ### Image configuration
 
-| Name               | Description                                      | Value                                                                    |
-| ------------------ | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `image.repository` | Image repository                                 | `registry.gitlab.com/skczu/elektronicke-skripta/readium-stack/lcpserver` |
-| `image.pullPolicy` | Image pull policy                                | `IfNotPresent`                                                           |
-| `image.tag`        | Image tag                                        | `latest`                                                                 |
-| `imagePullSecrets` | Specify docker-registry secret names as an array | `[]`                                                                     |
+| Name               | Description                                                                          | Value          |
+| ------------------ | ------------------------------------------------------------------------------------ | -------------- |
+| `image.repository` | Image repository. There is no official public image yet. You need to build your own. | `""`           |
+| `image.pullPolicy` | Image pull policy                                                                    | `IfNotPresent` |
+| `image.tag`        | Image tag                                                                            | `""`           |
+| `imagePullSecrets` | Specify docker-registry secret names as an array                                     | `[]`           |
 
 ### License server parameters
 

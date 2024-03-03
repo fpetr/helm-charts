@@ -1,13 +1,13 @@
 ## @section Image configuration
-## @param image.repository [string, default: registry.gitlab.com/skczu/elektronicke-skripta/readium-stack/lcpserver] Image repository
-## @param image.pullPolicy [string, default: IfNotPresent] Image pull policy
+## @param image.repository Image repository. There is no official public image yet. You need to build your own.
+## @param image.pullPolicy Image pull policy
 ## @param image.tag Image tag
 ## @param imagePullSecrets [array] Specify docker-registry secret names as an array
 image:
-  repository: registry.gitlab.com/skczu/elektronicke-skripta/readium-stack/lcpserver
-  pullPolicy: Always
+  repository: ""
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets:
   - name: registry.gitlab.com
