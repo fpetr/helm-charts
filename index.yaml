@@ -9,6 +9,35 @@ entries:
         - name: Upstream Project
           url: https://github.com/readium/readium-lcp-server
     apiVersion: v2
+    appVersion: 1.9.0
+    created: "2024-03-03T15:14:38.380935773Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.22.0
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.7.0
+    description: Readium License Server
+    digest: 0c11e01785df422061479ae064433d09cae1b995a64fa42a23be2db18b4517db
+    maintainers:
+    - email: petr.frantisek@gmail.com
+      name: fpetr
+    name: readium-lcpserver
+    type: application
+    urls:
+    - https://github.com/fpetr/helm-charts/releases/download/readium-lcpserver-0.0.4/readium-lcpserver-0.0.4.tgz
+    version: 0.0.4
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/fpetr/helm-charts
+        - name: Upstream Project
+          url: https://github.com/readium/readium-lcp-server
+    apiVersion: v2
     appVersion: 0.0.3
     created: "2024-03-03T09:52:26.531195484Z"
     dependencies:
@@ -77,4 +106,4 @@ entries:
     urls:
     - https://github.com/fpetr/helm-charts/releases/download/readium-lcpserver-0.0.1/readium-lcpserver-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-03T09:52:26.53120905Z"
+generated: "2024-03-03T15:14:38.380949939Z"
