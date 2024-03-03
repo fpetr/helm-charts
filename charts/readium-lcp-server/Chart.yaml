@@ -2,8 +2,8 @@ apiVersion: v2
 name: readium-lcpserver
 description: Readium License Server
 type: application
-version: 0.0.3
-appVersion: "0.0.3"
+version: 0.0.4
+appVersion: "v0.0.4"
 maintainers:
   - name: fpetr
     email: petr.frantisek@gmail.com
