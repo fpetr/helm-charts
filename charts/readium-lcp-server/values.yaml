@@ -1,0 +1,254 @@
+## @section Image configuration
+## @param image.repository Image repository. There is no official public image yet. You need to build your own.
+## @param image.pullPolicy Image pull policy
+## @param image.tag Image tag
+## @param imagePullSecrets [array] Specify docker-registry secret names as an array
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets:
+  - name: registry.gitlab.com
+
+## @section License server parameters
+## @param profile Value of LCP profile. Allowed values are "basic" or "1.0"
+profile: "basic"
+
+## @param configDirectory Application directory for mounting configuration files and certificate
+configDirectory: "/app"
+
+## @param auth.username Username for API requests authentication
+## @param auth.password Password for API requests authentication
+## @param auth.existingSecret Name of existing secret containing key "htpasswd" with username and password encrypted using htpasswd utility
+## @param auth.authfileMountDir Name of directory where to mount htpasswd file
+auth:
+  username: readium
+  password: readium
+  existingSecret: ""
+  authfileMountDir: "/app/htpasswd"
+
+## @param lcp.host [string, default: "0.0.0.0"] Public server hostname
+## @param lcp.port Listening port. Default to service.port parameter
+## @param lcp.public_base_url URL used by the Status Server and the Frontend Server to communicate with this License server. Automatically constructed using name of created service and service port
+## @param lcp.readonly Default to false
+lcp:
+  host: ""
+  port: ""
+  public_base_url: ""
+  readonly: ""
+
+## @param database.host MySQL database host. Default host is automatically constructed from mysql dependency included in this chart.
+## @param database.port MySQL database port.
+## @param database.database MySQL database name. Default to mysql.auth.database parameter
+## @param database.username MySQL username name. Default to mysql.auth.username parameter
+## @param database.password MySQL password name. Default to mysql.auth.password parameter
+database:
+  host: ""
+  port: 3306
+  database: ""
+  username: ""
+  password: ""
+
+## @param certificate.mountPath Base path for mounting certificates
+## @param certificate.certificateBase64 Base64 encoded certificate. If empty, uses default test certificate
+## @param certificate.privatekeyBase64 Base64 encoded private key. If empty, uses default test private key
+## @param certificate.existingSecret Name of existing secret containing certificate and private key. Secret must contain keys with name "cert.pem" and "key.pem"
+certificate:
+  mountPath: /app/cert
+  certificateBase64: ""
+  privatekeyBase64: ""
+  existingSecret: ""
+
+## @param lsdConfig.public_base_url Public base URL for LSD (Licensing Status Server)
+## @param lsdConfig.username Username for LSD authentication
+## @param lsdConfig.password Password for LSD authentication
+lsdConfig:
+  public_base_url: ""
+  username: ""
+  password: ""
+
+## @param objectStoreS3.endpoint Endpoint URL for S3 object store
+## @param objectStoreS3.access_id Access ID for S3 authentication
+## @param objectStoreS3.secret Secret key for S3 authentication
+## @param objectStoreS3.token Token for S3 authentication (optional)
+## @param objectStoreS3.bucket Bucket name
+## @param objectStoreS3.region Region of the S3 bucket
+## @param objectStoreS3.disable_ssl Disable SSL for S3 connection
+## @param objectStoreS3.pathStyle Use path-style addressing for S3 (optional)
+objectStoreS3:
+  endpoint: "http://minio.minio.svc.cluster.local:9000"
+  access_id: "readium"
+  secret: ""
+  token: ""
+  bucket: "readium"
+  region: "us-east-1"
+  disable_ssl: true
+  pathStyle: ""
+
+## @param localization.languages Comma-separated array of supported languages
+## @param localization.folder Folder for localization files
+## @param localization.default_language Default language for localization
+localization:
+  languages: []
+  folder: ""
+  default_language: ""
+
+## @param aes256_cbc_or_gcm Description for aes256_cbc_or_gcm parameter
+aes256_cbc_or_gcm: "_GCM"
+
+## @section Common parameters
+## @param nameOverride String to partially override lcpserver.name template (will maintain the release name)
+## @param fullnameOverride String to fully override lcpserver.name template
+## @param replicaCount Desired number of replicas
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+## @param serviceAccount.create Specifies whether a service account should be created
+## @param serviceAccount.automount Automatically mount a ServiceAccount's API credentials
+## @param serviceAccount.annotations Annotations to add to the service account
+## @param serviceAccount.name The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+## @param podAnnotations Additional annotations to add to the pods
+podAnnotations: {}
+## @param podLabels Additional labels to add to the pods.
+podLabels: {}
+
+## @param podSecurityContext Security context for the pods.
+podSecurityContext: {}
+  # fsGroup: 2000
+
+## @param securityContext Security context for containers within the pods.
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+## @param service.type Type of Kubernetes service (e.g., ClusterIP, NodePort, LoadBalancer)
+## @param service.port Port number for the service.
+service:
+  type: ClusterIP
+  port: 8080
+
+## @param ingress.enabled Enable or disable Ingress.
+## @param ingress.className Ingress class name.
+## @param ingress.annotations Additional annotations for the Ingress.
+## @param ingress.hosts Hostnames associated with the Ingress.
+## @param ingress.tls TLS configuration for the Ingress.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts: {}
+    # - host: chart-example.local
+    #   paths:
+    #     - path: /
+    #       pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+## @param resources Resource requests and limits configuration
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+
+## @param autoscaling.enabled Enable or disable Horizontal Pod Autoscaler.
+## @param autoscaling.minReplicas Minimum number of replicas.
+## @param autoscaling.maxReplicas Maximum number of replicas.
+## @param autoscaling.targetCPUUtilizationPercentage Target CPU utilization percentage.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+## @param additionalVolumes Array of additional volumes to create
+additionalVolumes: []
+
+## @param additionalVolumeMounts Array of additional volumes to mount to container
+additionalVolumeMounts: []
+
+## @param nodeSelector Node selector configuration
+nodeSelector: {}
+
+## @param tolerations Tolerations configuration
+tolerations: []
+
+## @param affinity Affinity configuration
+affinity: {}
+
+## @section MySQL parameters
+## @param mysql.enabled Enable MySQL
+## @param mysql.auth.rootPassword Root password for MySQL
+## @param mysql.auth.database Database name for MySQL
+## @param mysql.auth.username Username for MySQL
+## @param mysql.auth.password Password for MySQL
+## @param mysql.primary.persistence.size Size of persistent volume
+## @param mysql.initdbScripts Initialization scripts containing required tables for License server
+mysql:
+  enabled: true
+  auth:
+    rootPassword: "lcpserver"
+    database: "lcpserver"
+    username: "lcpserver"
+    password: "lcpserver"
+  primary:
+    persistence:
+      size: 1Gi
+  initdbScripts: {}
+    # mysql_db_setup_lcpserver.sql: |
+    #   CREATE TABLE `content` (
+    #       `id` varchar(255) PRIMARY KEY NOT NULL,
+    #       `encryption_key` varbinary(64) NOT NULL,
+    #       `location` text NOT NULL,
+    #       `length` bigint(20),
+    #       `sha256` varchar(64),
+    #       `type` varchar(255) NOT NULL DEFAULT 'application/epub+zip'
+    #   );
+
+    #   CREATE TABLE `license` (
+    #       `id` varchar(255) PRIMARY KEY NOT NULL,
+    #       `user_id` varchar(255) NOT NULL,
+    #       `provider` varchar(255) NOT NULL,
+    #       `issued` datetime NOT NULL,
+    #       `updated` datetime DEFAULT NULL,
+    #       `rights_print` int(11) DEFAULT NULL,
+    #       `rights_copy` int(11) DEFAULT NULL,
+    #       `rights_start` datetime DEFAULT NULL,
+    #       `rights_end` datetime DEFAULT NULL,
+    #       `content_fk` varchar(255) NOT NULL,
+    #       `lsd_status` int(11) default 0,
+    #       FOREIGN KEY(content_fk) REFERENCES content(id)
+    #   );
