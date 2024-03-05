@@ -1,0 +1,57 @@
+{{- $port := int .Values.service.port -}}
+{{- $public_base_url := printf "http://%s:%d" (include "lsdserver.fullname" .) $port -}}
+{{- $databasePort := int .Values.database.port | default 3306 -}}
+{{- $mysqlAuth := .Values.mysql.auth -}}
+
+{{- $username := .Values.database.username | default $mysqlAuth.username -}}
+{{- $password := .Values.database.password | default $mysqlAuth.password -}}
+{{- $host := .Values.database.host | default (printf "%s-mysql" (include "lsdserver.fullname" .)) -}}
+{{- $database := .Values.database.database | default $mysqlAuth.database -}}
+{{- $database_string := printf "mysql://%s:%s@(%s:%d)/%s?parseTime=true" $username $password $host $databasePort $database -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-config" (include "lsdserver.fullname" .) }}
+data:
+  config.yaml: |-
+    lsd:
+      host: {{ .Values.lsd.host | default "0.0.0.0" }}
+      port: {{ .Values.lsd.port | default .Values.service.port }}
+      public_base_url: {{ .Values.lsd.public_base_url | default $public_base_url | quote }}
+      database: {{ $database_string }}
+      auth_file: {{ required "A valid path required for htpasswd file .Values.auth.authfileMountDir" .Values.auth.authfileMountDir }}
+      readonly: {{ .Values.lsd.readonly | default false }}
+      licence_link_url: {{ .Values.lsd.licence_link_url }}
+
+    certificate:
+      cert: "{{ .Values.certificate.mountPath }}/cert.pem"
+      private_key: "{{ .Values.certificate.mountPath }}/key.pem"
+
+    lcp:
+      public_base_url: "{{ .Values.lcpConfig.public_base_url }}"
+    lcp_update_auth:
+      username: "{{ .Values.lcpConfig.username | default .Values.auth.username }}"
+      password: "{{ .Values.lcpConfig.password | default .Values.auth.password }}"
+
+    {{ if .Values.objectStoreS3.enabled -}}
+    storage:
+      mode: "s3"
+      endpoint: {{ .Values.objectStoreS3.endpoint }}
+      access_id: {{ .Values.objectStoreS3.access_id }}
+      disable_ssl: {{ .Values.objectStoreS3.disable_ssl }}
+      secret: {{ .Values.objectStoreS3.secret }}
+      bucket: {{ .Values.objectStoreS3.bucket }}
+      region: {{ .Values.objectStoreS3.region }}
+      {{- if .Values.objectStoreS3.token }}
+      token: {{ .Values.objectStoreS3.token }}
+      {{- end }}
+      {{- if .Values.objectStoreS3.token }}
+      pathStyle: {{ .Values.objectStoreS3.pathStyle }}
+      {{- end }}
+    {{- end }}
+
+    localization:
+      languages: {{ .Values.localization.languages }}
+      folder: {{ .Values.localization.folder }}
+      default_language: {{ .Values.localization.default_language }}
