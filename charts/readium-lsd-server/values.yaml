@@ -27,7 +27,7 @@ auth:
 
 ## @param lsd.host [string, default: "0.0.0.0"] Public server hostname
 ## @param lsd.port Listening port. Default to service.port parameter
-## @param lsd.public_base_url URL used by the Status Server and the Frontend Server to communicate with this License server. Automatically constructed using name of created service and service port
+## @param lsd.public_base_url The URL used by the License Server to communicate with this Status Server. Automatically constructed using name of created service and service port
 ## @param lsd.readonly Default to false
 ## @param lsd.licence_link_url Url from which a fresh license can be fetched from the provider's frontend server
 lsd:
