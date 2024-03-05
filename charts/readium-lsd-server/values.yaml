@@ -1,0 +1,263 @@
+## @section Image configuration
+## @param image.repository Image repository. There is no official public image yet.
+## @param image.pullPolicy Image pull policy
+## @param image.tag Image tag. Overrides the image tag whose default is the chart appVersion.
+## @param imagePullSecrets [array] Specify docker-registry secret names as an array
+image:
+  repository: "ghcr.io/fpetr/readium-lcp-server-docker-helm/lsdserver"
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+  # - name: registry.gitlab.com
+
+## @section Status server parameters
+## @param configDirectory Application directory for mounting configuration files and certificate
+configDirectory: "/app"
+
+## @param auth.username Username for API requests authentication
+## @param auth.password Password for API requests authentication
+## @param auth.existingSecret Name of existing secret containing key "htpasswd" with username and password encrypted using htpasswd utility
+## @param auth.authfileMountDir Name of directory where to mount htpasswd file
+auth:
+  username: readium
+  password: readium
+  existingSecret: ""
+  authfileMountDir: "/app/htpasswd"
+
+## @param lsd.host [string, default: "0.0.0.0"] Public server hostname
+## @param lsd.port Listening port. Default to service.port parameter
+## @param lsd.public_base_url The URL used by the License Server to communicate with this Status Server. Automatically constructed using name of created service and service port
+## @param lsd.readonly Default to false
+## @param lsd.licence_link_url Url from which a fresh license can be fetched from the provider's frontend server
+lsd:
+  host: ""
+  port: ""
+  public_base_url: ""
+  readonly: ""
+  licence_link_url: ""
+
+## @param database.host MySQL database host. Default host is automatically constructed from mysql dependency included in this chart.
+## @param database.port MySQL database port.
+## @param database.database MySQL database name. Default to mysql.auth.database parameter
+## @param database.username MySQL username name. Default to mysql.auth.username parameter
+## @param database.password MySQL password name. Default to mysql.auth.password parameter
+database:
+  host: ""
+  port: 3306
+  database: ""
+  username: ""
+  password: ""
+
+## @param certificate.mountPath Base path for mounting certificates
+## @param certificate.certificateBase64 Base64 encoded certificate. If empty, uses default test certificate
+## @param certificate.privatekeyBase64 Base64 encoded private key. If empty, uses default test private key
+## @param certificate.existingSecret Name of existing secret containing certificate and private key. Secret must contain keys with name "cert.pem" and "key.pem"
+certificate:
+  mountPath: /app/cert
+  certificateBase64: ""
+  privatekeyBase64: ""
+  existingSecret: ""
+
+## @param lcpConfig.public_base_url Public base URL for LCP (Licensing Server)
+## @param lcpConfig.username Username for LCP authentication
+## @param lcpConfig.password Password for LCP authentication
+lcpConfig:
+  public_base_url: "http://readium-lcpserver:8080"
+  username: ""
+  password: ""
+
+## @param objectStoreS3.enabled Enable configuration of Licence Server object store
+## @param objectStoreS3.endpoint Endpoint URL for S3 object store.
+## @param objectStoreS3.access_id Access ID for S3 authentication
+## @param objectStoreS3.secret Secret key for S3 authentication
+## @param objectStoreS3.token Token for S3 authentication (optional)
+## @param objectStoreS3.bucket Bucket name
+## @param objectStoreS3.region Region of the S3 bucket
+## @param objectStoreS3.disable_ssl Disable SSL for S3 connection
+## @param objectStoreS3.pathStyle Use path-style addressing for S3 (optional)
+objectStoreS3:
+  enabled: true
+  endpoint: "http://readium-lcpserver-minio:9000"
+  access_id: "readium"
+  secret: "readiumreadium"
+  token: ""
+  bucket: "readium"
+  region: "us-east-1"
+  disable_ssl: true
+  pathStyle: ""
+
+## @param localization.languages Comma-separated array of supported languages
+## @param localization.folder Folder for localization files
+## @param localization.default_language Default language for localization
+localization:
+  languages: []
+  folder: ""
+  default_language: ""
+
+## @section Common parameters
+## @param nameOverride String to partially override lsdserver.name template (will maintain the release name)
+## @param fullnameOverride String to fully override lsdserver.name template
+## @param replicaCount Desired number of replicas
+## @param strategy Deployment strategy to use. Defaults to RollingUpdate. If you enabled fileSystemStore persistence, change this to "Recreate"
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+strategy: "RollingUpdate"
+
+## @param serviceAccount.create Specifies whether a service account should be created
+## @param serviceAccount.automount Automatically mount a ServiceAccount's API credentials
+## @param serviceAccount.annotations Annotations to add to the service account
+## @param serviceAccount.name The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+## @param podAnnotations Additional annotations to add to the pods
+podAnnotations: {}
+## @param podLabels Additional labels to add to the pods.
+podLabels: {}
+
+## @param podSecurityContext Security context for the pods.
+podSecurityContext: {}
+  # fsGroup: 2000
+
+## @param securityContext Security context for containers within the pods.
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+## @param service.type Type of Kubernetes service (e.g., ClusterIP, NodePort, LoadBalancer)
+## @param service.port Port number for the service.
+service:
+  type: ClusterIP
+  port: 8080
+
+## @param ingress.enabled Enable or disable Ingress.
+## @param ingress.className Ingress class name.
+## @param ingress.annotations Additional annotations for the Ingress.
+## @param ingress.hosts Hostnames associated with the Ingress.
+## @param ingress.tls TLS configuration for the Ingress.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts: {}
+    # - host: chart-example.local
+    #   paths:
+    #     - path: /
+    #       pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+## @param resources Resource requests and limits configuration
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## @param livenessProbe [object] Configuration of the liveness probe.
+## @param readinessProbe [object] Configuration of the readiness probe.
+livenessProbe:
+  tcpSocket:
+    port: http
+readinessProbe:
+  tcpSocket:
+    port: http
+
+## @param autoscaling.enabled Enable or disable Horizontal Pod Autoscaler.
+## @param autoscaling.minReplicas Minimum number of replicas.
+## @param autoscaling.maxReplicas Maximum number of replicas.
+## @param autoscaling.targetCPUUtilizationPercentage Target CPU utilization percentage.
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+## @param extraEnvVars Extra environment variables to be set on container
+## e.g:
+## extraEnvVars:
+##   KEY: VALUE
+##
+extraEnvVars: {}
+
+## @param additionalVolumes Array of additional volumes to create
+additionalVolumes: []
+
+## @param additionalVolumeMounts Array of additional volumes to mount to container
+additionalVolumeMounts: []
+
+## @param nodeSelector Node selector configuration
+nodeSelector: {}
+
+## @param tolerations Tolerations configuration
+tolerations: []
+
+## @param affinity Affinity configuration
+affinity: {}
+
+## @section MySQL parameters
+## @param mysql.enabled Enable MySQL
+## @param mysql.auth.rootPassword Root password for MySQL
+## @param mysql.auth.database Database name for MySQL
+## @param mysql.auth.username Username for MySQL
+## @param mysql.auth.password Password for MySQL
+## @param mysql.primary.persistence.size Size of persistent volume
+## @param mysql.initdbScripts.mysql_db_setup_lsdserver.sql [default: "Check script in values.yaml"] Initialization scripts containing required tables for Status server
+mysql:
+  enabled: true
+  auth:
+    rootPassword: "lsdserver"
+    database: "lsdserver"
+    username: "lsdserver"
+    password: "lsdserver"
+  primary:
+    persistence:
+      size: 1Gi
+  initdbScripts:
+    mysql_db_setup_lsdserver.sql: |
+      CREATE TABLE `license_status` (
+          `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+          `status` int(11) NOT NULL,
+          `license_updated` datetime NOT NULL,
+          `status_updated` datetime NOT NULL,
+          `device_count` int(11) DEFAULT NULL,
+          `potential_rights_end` datetime DEFAULT NULL,
+          `license_ref` varchar(255) NOT NULL,
+          `rights_end` datetime DEFAULT NULL
+      );
+
+      CREATE INDEX `license_ref_index` ON `license_status` (`license_ref`);
+
+      CREATE TABLE `event` (
+          `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+          `device_name` varchar(255) DEFAULT NULL,
+          `timestamp` datetime NOT NULL,
+          `type` int NOT NULL,
+          `device_id` varchar(255) DEFAULT NULL,
+          `license_status_fk` int NOT NULL,
+          FOREIGN KEY(`license_status_fk`) REFERENCES `license_status` (`id`)
+      );
+
+      CREATE INDEX `license_status_fk_index` on `event` (`license_status_fk`);

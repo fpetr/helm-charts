@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lsdserver.fullname" . }}
+  labels:
+    {{- include "lsdserver.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "lsdserver.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: {{ .Values.strategy | default "RollingUpdate" }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lsdserver.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "lsdserver.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- include "helpers.list-env-variables" . | indent 12 }}
+            - name: READIUM_LSDSERVER_CONFIG
+              value: "{{ .Values.configDirectory }}/config.yaml"
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.additionalVolumeMounts -}}
+            {{- toYaml .Values.additionalVolumeMounts | nindent 12 }}
+            {{- end }}
+            - name: config
+              mountPath: {{ .Values.configDirectory }}
+              readOnly: true
+            - name: certificate
+              mountPath: {{ .Values.certificate.mountPath }}
+              readOnly: true
+            - name: htpasswd
+              mountPath: {{ .Values.auth.authfileMountDir }}
+              readOnly: true
+      volumes:
+        {{- if .Values.additionalVolumes -}}
+        {{- toYaml .Values.additionalVolumes | nindent 8 }}
+        {{- end }}
+        - name: config
+          configMap:
+            name: {{ printf "%s-config" (include "lsdserver.fullname" .) }}
+        - name: certificate
+          secret:
+            {{- if .Values.certificate.existingSecret }}
+            secretName: {{ .Values.certificate.existingSecret }}
+            {{- else }}
+            secretName: {{ printf "%s-cert" (include "lsdserver.fullname" .) }}
+            {{- end }}
+        - name: htpasswd
+          secret:
+            {{- if .Values.auth.existingSecret }}
+            secretName: {{ .Values.auth.existingSecret }}
+            {{- else }}
+            secretName: {{ printf "%s-htpasswd" (include "lsdserver.fullname" .) }}
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
