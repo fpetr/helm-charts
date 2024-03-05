@@ -135,4 +135,30 @@ entries:
     urls:
     - https://github.com/fpetr/helm-charts/releases/download/readium-lcpserver-0.0.1/readium-lcpserver-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-03T15:24:29.203223302Z"
+  readium-lsdserver:
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/fpetr/helm-charts
+        - name: Upstream Project
+          url: https://github.com/readium/readium-lcp-server
+    apiVersion: v2
+    appVersion: 1.9.0
+    created: "2024-03-05T08:25:53.941348448Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.22.0
+    description: Readium Status Server
+    digest: a7369757dfd82d41653e29b93f06fed697d96226a51c67551427ea8577729d14
+    maintainers:
+    - email: petr.frantisek@gmail.com
+      name: fpetr
+    name: readium-lsdserver
+    type: application
+    urls:
+    - https://github.com/fpetr/helm-charts/releases/download/readium-lsdserver-0.0.1/readium-lsdserver-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-03-05T08:25:53.941368255Z"
